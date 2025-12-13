@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"/><title>Menu</title></head>
+<body>
+<h1>Menu</h1>
+<div id="menu"></div>
+
+<h3>Place Order</h3>
+<input id="name" placeholder="Your name"/><br/>
+<input id="phone" placeholder="Phone"/><br/>
+<button onclick="placeOrder()">Place Order</button>
+
+<script src="js/api.js"></script>
+<script>
+    let restaurant;
+    async function loadMenu() {
+      const id = localStorage.getItem('restaurantId');
+      restaurant = await api.getRestaurant(id);
+      document.querySelector('h1').innerText = 'Menu - ' + restaurant.name;
+      const menuDiv = document.getElementById('menu');
+      menuDiv.innerHTML = restaurant.menu.map(m => `
+        <div>
+          <b>${m.name}</b> - ₹${m.price} <input type="number" id="q_${m.id}" value="0" min="0"/>
+        </div>
+      `).join('');
+    }
+
+    async function placeOrder() {
+      const items = restaurant.menu.map(m => {
+        const qty = parseInt(document.getElementById('q_'+m.id).value || '0');
+        return { menuItemId: m.id, name: m.name, qty: qty, price: m.price };
+      }).filter(i => i.qty > 0);
+
+      if(items.length === 0){ alert('Select items'); return; }
+      const order = {
+        customerName: document.getElementById('name').value || 'Guest',
+        customerPhone: document.getElementById('phone').value || '',
+        restaurantId: restaurant.id,
+        items: items
+      };
+      const saved = await api.placeOrder(order);
+      alert('Order placed. ID: ' + saved.id);
+      window.location = 'index.html';
+    }
+
+    loadMenu();
+</script>
+</body>
+</html>

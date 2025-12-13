@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Restaurants</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        .card h3 {
+            margin: 0 0 6px 0;
+        }
+        button {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Restaurants</h1>
+<div id="list">Loading...</div>
+
+<!-- IMPORTANT: api.js must be loaded BEFORE using api -->
+<script src="/js/api.js"></script>
+
+<script>
+    async function loadRestaurants() {
+        try {
+            const restaurants = await api.getRestaurants();
+            const list = document.getElementById("list");
+
+            if (!Array.isArray(restaurants) || restaurants.length === 0) {
+                list.innerHTML = "<p>No restaurants found.</p>";
+                return;
+            }
+
+            list.innerHTML = restaurants.map(rest => `
+                <div class="card">
+                    <h3>${rest.name || "No Name"}</h3>
+                    <p>${rest.address || "Address not available"}</p>
+                    <button onclick="openMenu('${rest.id}')">Open Menu</button>
+                </div>
+            `).join('');
+        } catch (err) {
+            console.error("Error loading restaurants:", err);
+            document.getElementById("list").innerHTML =
+                "<p style='color:red;'>Error loading restaurants.</p>";
+        }
+    }
+
+    function openMenu(id) {
+        localStorage.setItem("restaurantId", id);
+        window.location.href = "/menu.html";
+    }
+
+    window.onload = loadRestaurants;
+</script>
+
+</body>
+</html>

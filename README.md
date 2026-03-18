@@ -6,57 +6,6 @@ The application allows users to view restaurants, browse menus, and place food o
 
 ---
 
-## 🛠️ Technologies Used
-- Java 17+
-- Spring Boot
-- Spring Data MongoDB
-- MongoDB Atlas
-- HTML, CSS, JavaScript
-- Maven
-- Git & GitHub
-
----
-
-## 🚀 Features
-- Restaurant listing
-- Add restaurant with menu items
-- View restaurant menu
-- REST APIs
-- MongoDB integration
-- Frontend served via Spring Boot
-
----
-
-## 📂 Project Structure
-# 🍽️ Online Food Delivery Web Application
-
-## 📌 Project Overview
-This is a full-stack Online Food Delivery Web Application developed using **Spring Boot**, **MongoDB**, **HTML**, **CSS**, and **JavaScript**.  
-The application allows users to view restaurants, browse menus, and place food orders.
-
----
-
-## 🛠️ Technologies Used
-- Java 17+
-- Spring Boot
-- Spring Data MongoDB
-- MongoDB Atlas
-- HTML, CSS, JavaScript
-- Maven
-- Git & GitHub
-
----
-
-## 🚀 Features
-- Restaurant listing
-- Add restaurant with menu items
-- View restaurant menu
-- REST APIs
-- MongoDB integration
-- Frontend served via Spring Boot
-
----
-
 ## 📂 Project Structure
 # 🍽️ Online Food Delivery Web Application
 
